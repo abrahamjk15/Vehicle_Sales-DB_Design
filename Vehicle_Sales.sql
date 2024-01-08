@@ -23,6 +23,44 @@ CREATE TABLE Vehicle_Model (
     BasePrice DECIMAL(10, 2)
 );
 
+-- Create Customer Table
+CREATE TABLE Customer (
+    CustomerID VARCHAR(10) PRIMARY KEY,
+    CustomerName VARCHAR(100),
+    Address VARCHAR(255),
+    Gender VARCHAR(10),
+    Email VARCHAR(100),
+    Phone VARCHAR(20)
+);
+
+-- Create Payment Table
+CREATE TABLE Payment (
+    PaymentID VARCHAR(10) PRIMARY KEY,
+    Amount DECIMAL(10, 2),
+    Description VARCHAR(255),
+    Method VARCHAR(20)
+);
+
+-- Create InsuranceProvider Table
+CREATE TABLE InsuranceProvider (
+    ProviderID VARCHAR(10) PRIMARY KEY,
+    Company VARCHAR(100)
+);
+
+-- Create Coverage Table
+CREATE TABLE Coverage (
+    CoverageID VARCHAR(10) PRIMARY KEY,
+    CoverageType VARCHAR(50)
+);
+
+-- Create Sale Table
+CREATE TABLE Sale (
+    SaleID VARCHAR(10) PRIMARY KEY,
+    VIN VARCHAR(20),
+    SalePrice DECIMAL(10, 2),
+    FOREIGN KEY (VIN) REFERENCES Vehicle(VIN)
+);
+
 -- Create Vehicle_Type_mapping Table
 CREATE TABLE Vehicle_Type_mapping (
     VIN VARCHAR(20) PRIMARY KEY,
@@ -37,24 +75,6 @@ CREATE TABLE Vehicle_Model_mapping (
     ModelID VARCHAR(10),
     FOREIGN KEY (VIN) REFERENCES Vehicle(VIN),
     FOREIGN KEY (ModelID) REFERENCES Vehicle_Model(ModelID)
-);
-
--- Create Customer Table
-CREATE TABLE Customer (
-    CustomerID VARCHAR(10) PRIMARY KEY,
-    CustomerName VARCHAR(100),
-    Address VARCHAR(255),
-    Gender VARCHAR(10),
-    Email VARCHAR(100),
-    Phone VARCHAR(20)
-);
-
--- Create Sale Table
-CREATE TABLE Sale (
-    SaleID VARCHAR(10) PRIMARY KEY,
-    VIN VARCHAR(20),
-    SalePrice DECIMAL(10, 2),
-    FOREIGN KEY (VIN) REFERENCES Vehicle(VIN)
 );
 
 -- Create Sale_Customer_mapping Table
@@ -73,14 +93,6 @@ CREATE TABLE Vehicle_Customer_mapping (
     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
 );
 
--- Create Payment Table
-CREATE TABLE Payment (
-    PaymentID VARCHAR(10) PRIMARY KEY,
-    Amount DECIMAL(10, 2),
-    Description VARCHAR(255),
-    Method VARCHAR(20)
-);
-
 -- Create Payment_Sale_mapping Table
 CREATE TABLE Payment_Sale_mapping (
     PaymentID VARCHAR(10) PRIMARY KEY,
@@ -97,18 +109,6 @@ CREATE TABLE Insurance (
     StartDate DATE,
     EndDate DATE,
     FOREIGN KEY (VIN) REFERENCES Vehicle(VIN)
-);
-
--- Create InsuranceProvider Table
-CREATE TABLE InsuranceProvider (
-    ProviderID VARCHAR(10) PRIMARY KEY,
-    Company VARCHAR(100)
-);
-
--- Create Coverage Table
-CREATE TABLE Coverage (
-    CoverageID VARCHAR(10) PRIMARY KEY,
-    CoverageType VARCHAR(50)
 );
 
 -- Create Insurance_Provider_mapping Table
